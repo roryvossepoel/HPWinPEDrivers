@@ -1,6 +1,6 @@
 @{
     RootModule           = 'HPWinPEDrivers.psm1'
-    ModuleVersion        = '0.1.0'
+    ModuleVersion        = '1.0.0'
     GUID                 = 'd40d475f-41e6-4ed4-a362-9b74a24277f4'
     Author               = 'Rory Vossepoel'
     CompanyName          = ''
@@ -23,7 +23,7 @@
             Tags         = @('HP', 'WinPE', 'WindowsPE', 'Driver', 'OSD', 'Deployment')
             LicenseUri   = 'https://github.com/roryvossepoel/HPWinPEDrivers/blob/main/LICENSE'
             ProjectUri   = 'https://github.com/roryvossepoel/HPWinPEDrivers'
-            ReleaseNotes = 'Initial preview implementation.'
+            ReleaseNotes = 'Initial public release. Dynamically discovers the current HP WinPE 10/11 driver pack, validates source metadata, and builds a local driver repository from the official HP SoftPaq.'
         }
     }
 }
