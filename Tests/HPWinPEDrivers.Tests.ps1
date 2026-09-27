@@ -1,6 +1,4 @@
-BeforeAll {
-    Import-Module (Join-Path $PSScriptRoot '..\HPWinPEDrivers.psd1') -Force
-}
+Import-Module (Join-Path $PSScriptRoot '..\HPWinPEDrivers.psd1') -Force
 
 Describe 'HPWinPEDrivers module' {
     It 'exports the expected public commands' {
