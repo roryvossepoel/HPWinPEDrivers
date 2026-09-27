@@ -47,10 +47,10 @@ function Save-HPWinPEDriverPack {
     }
 
     $pack = if ($Version) {
-        Get-HPWinPEDriverPack -Version $Version | Select-Object -First 1
+        Get-HPWinPEDriverPackInfo -Version $Version | Select-Object -First 1
     }
     else {
-        Get-HPWinPEDriverPack
+        Get-HPWinPEDriverPackInfo
     }
 
     $metadataPath = Join-Path $Path '.hpwinpe.json'

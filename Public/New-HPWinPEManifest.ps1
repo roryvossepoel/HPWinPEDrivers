@@ -25,7 +25,7 @@ function New-HPWinPEManifest {
         [switch]$Validate
     )
 
-    $pack = Get-HPWinPEDriverPack
+    $pack = Get-HPWinPEDriverPackInfo
     $urlValidation = $null
 
     if ($Validate) {

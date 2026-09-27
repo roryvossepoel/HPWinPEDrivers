@@ -4,6 +4,8 @@
 
 `HPWinPEDrivers` is a PowerShell module that dynamically discovers and downloads the current HP Client Windows PE driver pack.
 
+> **Note:** Version 1.0.1 renamed the discovery command from `Get-HPWinPEDriverPack` to `Get-HPWinPEDriverPackInfo` to avoid a command-name conflict with the OSD PowerShell module.
+
 The module uses HP's official **HP Client Windows PE Driver Packs** page at runtime. It does not maintain a hardcoded SoftPaq number or driver-pack version.
 
 ## Why
@@ -46,7 +48,7 @@ Import-Module .\HPWinPEDrivers.psd1 -Force
 ### Discover the current HP WinPE driver pack
 
 ```powershell
-Get-HPWinPEDriverPack
+Get-HPWinPEDriverPackInfo
 ```
 
 Typical output:
@@ -60,19 +62,19 @@ WinPE 10/11 3.40    sp173204  06/22/2026  x64
 Return every WinPE 10/11 pack currently listed by HP:
 
 ```powershell
-Get-HPWinPEDriverPack -All
+Get-HPWinPEDriverPackInfo -All
 ```
 
 Select a specific published version:
 
 ```powershell
-Get-HPWinPEDriverPack -Version '3.40'
+Get-HPWinPEDriverPackInfo -Version '3.40'
 ```
 
 or SoftPaq:
 
 ```powershell
-Get-HPWinPEDriverPack -SoftPaq 'sp173204'
+Get-HPWinPEDriverPackInfo -SoftPaq 'sp173204'
 ```
 
 ## Manifest / dry run

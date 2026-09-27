@@ -1,4 +1,4 @@
-function Get-HPWinPEDriverPack {
+function Get-HPWinPEDriverPackInfo {
     <#
     .SYNOPSIS
         Discovers HP Client Windows PE 10/11 driver packs from HP's official catalog.
@@ -7,6 +7,9 @@ function Get-HPWinPEDriverPack {
         Reads HP's current Windows PE driver pack page dynamically. By default, the newest
         WinPE 10/11 x64 driver pack is returned. Use -All to return every WinPE 10/11 pack
         currently listed by HP, or filter by exact version or SoftPaq number.
+
+        The command name intentionally avoids Get-HpWinPEDriverPack, which is already exported
+        by the OSD PowerShell module.
 
     .PARAMETER All
         Return every WinPE 10/11 driver pack currently listed by HP.
@@ -18,13 +21,13 @@ function Get-HPWinPEDriverPack {
         Return the driver pack with this SoftPaq number, for example sp173204.
 
     .EXAMPLE
-        Get-HPWinPEDriverPack
+        Get-HPWinPEDriverPackInfo
 
     .EXAMPLE
-        Get-HPWinPEDriverPack -All
+        Get-HPWinPEDriverPackInfo -All
 
     .EXAMPLE
-        Get-HPWinPEDriverPack -Version '3.40'
+        Get-HPWinPEDriverPackInfo -Version '3.40'
     #>
     [CmdletBinding(DefaultParameterSetName = 'Latest')]
     param(

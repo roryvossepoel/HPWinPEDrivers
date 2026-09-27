@@ -19,7 +19,7 @@ Update-TypeData -TypeName 'HPWinPEDrivers.Result' -DefaultDisplayPropertySet @(
 ) -Force
 
 Export-ModuleMember -Function @(
-    'Get-HPWinPEDriverPack',
+    'Get-HPWinPEDriverPackInfo',
     'New-HPWinPEManifest',
     'Save-HPWinPEDriverPack'
 )
