@@ -119,6 +119,20 @@ The downloaded SoftPaq is temporary working data and is not retained in the fina
 
 The `.hpwinpe.json` file records the source version and SoftPaq used to build the repository. A later run compares this metadata with HP's current publication and skips the download when the output is already current.
 
+## HP SoftPaq exit code 1168
+
+The current HP WinPE package `sp173204` has been verified to extract successfully with:
+
+```text
+sp173204.exe /s /e /f "<target-path>"
+```
+
+while the process still returns exit code `1168`.
+
+Because of that behavior, `HPWinPEDrivers` does not treat exit code `1168` alone as a failed extraction. It accepts `0` and `1168`, but only considers the operation successful when the extraction directory actually contains output. An empty extraction directory still causes the build to fail.
+
+This behavior was reproduced independently outside the module using `Start-Process -Wait -PassThru`, where `sp173204` returned `1168` while creating the expected `WinPE10_3.40` payload.
+
 ## Safety and validation
 
 The module intentionally fails rather than silently guessing when:
@@ -126,7 +140,7 @@ The module intentionally fails rather than silently guessing when:
 - HP's source page no longer yields a WinPE 10/11 package;
 - a requested version or SoftPaq is no longer present in the current HP table;
 - the selected SoftPaq cannot be downloaded;
-- SoftPaq extraction fails;
+- SoftPaq extraction returns an unexpected exit code;
 - extraction completes without producing content.
 
 If HP changes the HTML structure or current publication, the scheduled live CI smoke test should make that visible.
