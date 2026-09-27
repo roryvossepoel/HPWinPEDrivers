@@ -16,16 +16,14 @@ function Expand-HPSoftPaq {
         New-Item -ItemType Directory -Path $DestinationPath -Force | Out-Null
     }
 
-    # HP documents extraction as /s /e /f <target folder>.
-    # Pass /f and the target path as separate arguments because SoftPaq parsing is strict.
-    $arguments = @(
-        '/s',
-        '/e',
-        '/f',
-        $DestinationPath
-    )
+    # HP documents extraction as:
+    #   /s /e /f <target-path>
+    #
+    # Start-Process joins ArgumentList items into a single command line. Quote the
+    # target path explicitly so profile paths containing spaces survive parsing.
+    $argumentLine = '/s /e /f "{0}"' -f $DestinationPath
 
-    $process = Start-Process -FilePath $SoftPaqPath -ArgumentList $arguments -Wait -PassThru
+    $process = Start-Process -FilePath $SoftPaqPath -ArgumentList $argumentLine -Wait -PassThru
     if ($process.ExitCode -ne 0) {
         throw "HP SoftPaq extraction failed with exit code $($process.ExitCode)."
     }
