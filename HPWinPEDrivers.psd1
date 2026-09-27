@@ -5,7 +5,7 @@
     Author               = 'Rory Vossepoel'
     CompanyName          = ''
     Copyright            = '(c) 2026 Rory Vossepoel. All rights reserved.'
-    Description          = 'Dynamically discovers and downloads the current HP Client Windows PE driver pack.'
+    Description          = 'PowerShell module to dynamically discover, validate, download, and extract the current HP Windows PE 10/11 driver pack from HP''s official SoftPaq catalog.'
     PowerShellVersion    = '5.1'
     CompatiblePSEditions = @('Desktop', 'Core')
 
@@ -20,10 +20,10 @@
 
     PrivateData = @{
         PSData = @{
-            Tags         = @('HP', 'WinPE', 'WindowsPE', 'Driver', 'OSD', 'Deployment')
+            Tags         = @('HP', 'WinPE', 'WindowsPE', 'Driver', 'Drivers', 'OSD', 'Deployment', 'SoftPaq', 'Automation')
             LicenseUri   = 'https://github.com/roryvossepoel/HPWinPEDrivers/blob/main/LICENSE'
             ProjectUri   = 'https://github.com/roryvossepoel/HPWinPEDrivers'
-            ReleaseNotes = 'Initial public release. Dynamically discovers the current HP WinPE 10/11 driver pack, validates source metadata, and builds a local driver repository from the official HP SoftPaq.'
+            ReleaseNotes = 'Initial public release. Dynamically discovers the current HP WinPE 10/11 driver pack, validates source metadata, downloads the official HP SoftPaq, extracts the driver payload, and maintains local repository metadata.'
         }
     }
 }
