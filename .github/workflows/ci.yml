@@ -3,7 +3,7 @@ name: CI
 on:
   push:
     branches:
-      - feature/initial-module
+      - main
   pull_request:
   schedule:
     - cron: '31 5 * * 1'
