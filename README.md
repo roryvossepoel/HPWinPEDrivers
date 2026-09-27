@@ -1,5 +1,7 @@
 # HPWinPEDrivers
 
+[![PowerShell Gallery](https://img.shields.io/powershellgallery/v/HPWinPEDrivers?label=PowerShell%20Gallery)](https://www.powershellgallery.com/packages/HPWinPEDrivers)
+
 `HPWinPEDrivers` is a PowerShell module that dynamically discovers and downloads the current HP Client Windows PE driver pack.
 
 The module uses HP's official **HP Client Windows PE Driver Packs** page at runtime. It does not maintain a hardcoded SoftPaq number or driver-pack version.
