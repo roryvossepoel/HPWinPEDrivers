@@ -3,7 +3,7 @@ Import-Module (Join-Path $PSScriptRoot '..\HPWinPEDrivers.psd1') -Force
 Describe 'HPWinPEDrivers module' {
     It 'exports the expected public commands' {
         $commands = @(Get-Command -Module HPWinPEDrivers | Select-Object -ExpandProperty Name)
-        $commands | Should -Contain 'Get-HPWinPEDriverPack'
+        $commands | Should -Contain 'Get-HPWinPEDriverPackInfo'
         $commands | Should -Contain 'New-HPWinPEManifest'
         $commands | Should -Contain 'Save-HPWinPEDriverPack'
     }
