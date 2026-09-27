@@ -16,11 +16,13 @@ function Expand-HPSoftPaq {
         New-Item -ItemType Directory -Path $DestinationPath -Force | Out-Null
     }
 
-    # HP documents /s /e /f <path> for extracting SoftPaq content without installation.
+    # HP SoftPaq generations are sensitive to the exact /f syntax.
+    # Use the compact form shown in HP examples and recent working reports:
+    #   spxxxxx.exe /e -fC:\Path\To\Extract /s
     $arguments = @(
-        '/s',
         '/e',
-        ('/f"{0}"' -f $DestinationPath)
+        ('-f{0}' -f $DestinationPath),
+        '/s'
     )
 
     $process = Start-Process -FilePath $SoftPaqPath -ArgumentList $arguments -Wait -PassThru
