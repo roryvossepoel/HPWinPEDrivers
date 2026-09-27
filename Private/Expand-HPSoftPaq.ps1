@@ -16,12 +16,10 @@ function Expand-HPSoftPaq {
         New-Item -ItemType Directory -Path $DestinationPath -Force | Out-Null
     }
 
-    # HP documents extraction as:
-    #   /s /e /f <target-path>
-    #
-    # Start-Process joins ArgumentList items into a single command line. Quote the
-    # target path explicitly so profile paths containing spaces survive parsing.
-    $argumentLine = '/s /e /f "{0}"' -f $DestinationPath
+    # Newer HP SoftPaqs can be strict about switch formatting. Use the compact
+    # extraction syntax that HP community reports as working reliably:
+    #   spxxxxx.exe /e -fC:\Path\To\Extract /s
+    $argumentLine = '/e -f{0} /s' -f $DestinationPath
 
     $process = Start-Process -FilePath $SoftPaqPath -ArgumentList $argumentLine -Wait -PassThru
     if ($process.ExitCode -ne 0) {
