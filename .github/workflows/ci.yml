@@ -57,7 +57,7 @@ jobs:
           $ErrorActionPreference = 'Stop'
           Import-Module .\HPWinPEDrivers.psd1 -Force
 
-          $pack = Get-HPWinPEDriverPack
+          $pack = Get-HPWinPEDriverPackInfo
           $pack | Format-List *
 
           $manifestPath = Join-Path $env:RUNNER_TEMP 'HPWinPE.Manifest.json'
