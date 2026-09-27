@@ -80,7 +80,16 @@ function Save-HPWinPEDriverPack {
         return
     }
 
-    $workingPath = Join-Path ([IO.Path]::GetTempPath()) ('HPWinPEDrivers-' + [guid]::NewGuid().ToString('N'))
+    $resolvedPath = [IO.Path]::GetFullPath($Path)
+    $workingRoot = Split-Path -Parent $resolvedPath
+    if (-not $workingRoot) {
+        $workingRoot = (Get-Location).Path
+    }
+    if (-not (Test-Path -LiteralPath $workingRoot)) {
+        New-Item -ItemType Directory -Path $workingRoot -Force | Out-Null
+    }
+
+    $workingPath = Join-Path $workingRoot ('HPWinPEDrivers-' + [guid]::NewGuid().ToString('N'))
     $softPaqPath = Join-Path $workingPath $pack.FileName
     $extractPath = Join-Path $workingPath 'extracted'
     $stagePath = Join-Path $workingPath 'output'
@@ -119,26 +128,21 @@ function Save-HPWinPEDriverPack {
             ConvertTo-Json -Depth 10 |
             Set-Content -LiteralPath (Join-Path $stagePath '.hpwinpe.json') -Encoding UTF8
 
-        if (Test-Path -LiteralPath $Path) {
-            Remove-Item -LiteralPath $Path -Recurse -Force
+        if (Test-Path -LiteralPath $resolvedPath) {
+            Remove-Item -LiteralPath $resolvedPath -Recurse -Force
         }
 
-        $parent = Split-Path -Parent $Path
-        if ($parent -and -not (Test-Path -LiteralPath $parent)) {
-            New-Item -ItemType Directory -Path $parent -Force | Out-Null
-        }
-
-        Move-Item -LiteralPath $stagePath -Destination $Path
+        Move-Item -LiteralPath $stagePath -Destination $resolvedPath
 
         $buildSucceeded = $true
-        Write-HPStatus -Message "HP WinPE driver pack saved to '$Path'." -Quiet:$Quiet
+        Write-HPStatus -Message "HP WinPE driver pack saved to '$resolvedPath'." -Quiet:$Quiet
 
         $result = [pscustomobject]@{
             PSTypeName = 'HPWinPEDrivers.Result'
             Version    = $pack.Version
             SoftPaq    = $pack.SoftPaq
             Status     = 'Saved'
-            Path       = $Path
+            Path       = $resolvedPath
         }
         $result.PSObject.TypeNames.Insert(0, 'HPWinPEDrivers.Result')
         $result
