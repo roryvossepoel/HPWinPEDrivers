@@ -16,13 +16,13 @@ function Expand-HPSoftPaq {
         New-Item -ItemType Directory -Path $DestinationPath -Force | Out-Null
     }
 
-    # HP SoftPaq generations are sensitive to the exact /f syntax.
-    # Use the compact form shown in HP examples and recent working reports:
-    #   spxxxxx.exe /e -fC:\Path\To\Extract /s
+    # HP documents extraction as /s /e /f <target folder>.
+    # Pass /f and the target path as separate arguments because SoftPaq parsing is strict.
     $arguments = @(
+        '/s',
         '/e',
-        ('-f{0}' -f $DestinationPath),
-        '/s'
+        '/f',
+        $DestinationPath
     )
 
     $process = Start-Process -FilePath $SoftPaqPath -ArgumentList $arguments -Wait -PassThru
