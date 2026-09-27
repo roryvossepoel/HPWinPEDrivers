@@ -16,10 +16,12 @@ function Expand-HPSoftPaq {
         New-Item -ItemType Directory -Path $DestinationPath -Force | Out-Null
     }
 
-    # Newer HP SoftPaqs can be strict about switch formatting. Use the compact
-    # extraction syntax that works with the current HP WinPE SoftPaq:
-    #   spxxxxx.exe /e -fC:\Path\To\Extract /s
-    $argumentLine = '/e -f{0} /s' -f $DestinationPath
+    # HP documents extraction as:
+    #   spxxxxx.exe /s /e /f "C:\Path\To\Extract"
+    #
+    # The current HP WinPE SoftPaq (sp173204) has been verified to extract
+    # successfully with this syntax while returning process exit code 1168.
+    $argumentLine = '/s /e /f "{0}"' -f $DestinationPath
 
     $process = Start-Process -FilePath $SoftPaqPath -ArgumentList $argumentLine -Wait -PassThru
 
